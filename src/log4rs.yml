@@ -1,0 +1,28 @@
+appenders:
+  rolling_file:
+    kind: rolling_file
+    path: "monitoring.log"
+    encoder:
+      pattern: "{d(%Y-%m-%d %H:%M:%S)} - {l} - {m}{n}"
+    policy:
+      kind: compound
+      trigger:
+        kind: size
+        limit: 10MB  # Set the size limit for rolling
+      roller:
+        kind: fixed_window
+        base: 1
+        count: 3
+        
+  console:
+    kind: console
+
+  file:
+    kind: file
+    path: "monitoring.log"
+
+root:
+  level: info
+  appenders:
+    - console
+    - file
